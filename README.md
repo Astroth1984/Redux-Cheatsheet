@@ -44,6 +44,8 @@ export const userSlice = createSlice({
 // Let's export our actions
 export const {update} = userSlice.actions;
 
+// export reducer to use it in our store
+export default userSlice.reducer;
 ````
 
 ## redux/store.js
@@ -52,6 +54,13 @@ The store will containe our user infromation (username, email ...)
 
 ````javascript
 import { configureStore } from '@reduxjs/toolkit';
+import userReducer from './userRedux';
+
+export default configureStore({
+  reducer: {
+    user: userReducer,
+  },
+});
 ````
 
 ## State management with Redux
@@ -94,4 +103,27 @@ In the return section of `Update.jsx` we set the _userObject_ like follow:
   </div>
 ````
 
-So what we need to do now is to send the updated values to our __reducer__ and they are going to be basically our __action payload__ 
+So what we need to do now is to send the updated values to our __reducer__ and they are going to be basically our __action payload__.
+
+To do that we should 
+
+
+### index.js
+
+To access our __store__ and __actions__ , we should wrap our entire application and provide our store in any component inside `<App />`
+
+````jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import store from "./redux/store";
+import { Provider } from "react-redux";
+
+ReactDOM.render(
+  <Provider store={store}>
+      <App />
+  </Provider>,
+  document.getElementById("root")
+);
+````
+
