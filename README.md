@@ -229,7 +229,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const userSlice = createSlice({
      name: "user",
      initialState: {
-       user: {
+       userInfo: {
           name: "",
           email: ""
        },
@@ -258,4 +258,32 @@ export const { updateStart, updateSuccess, updateFailure } = userSlice.actions;
 // export reducer to use it in our store
 export default userSlice.reducer;
 ````
+
+### Api Calls
+As i prefer to do in a real project, is to create a new file under `src/redux/apiCalls.js` which contains our *GET* *POST* *PUT* *DELETE* http calls.
+
+**apiCalls.js**
+
+````javascript
+import axios from "axios";
+import { updateStart, updateSuccess, updateFailure } from "./userRedux";
+
+
+// export reducer to be used in our UpdateComponent
+export const updateUser = async (user, dispatch) => {
+  
+  // first when we click submit button we want to dispatch updateStart() action first
+  dispatch(updateStart());
+  try {
+    const res = await axios.post("http://localhost:8800/api/users/1/update", user);
+    dispatch(updateSuccess(res.data));
+  } catch (err) {
+    dispatch(updateFailure());
+  }
+};
+````
+
+
+
+
 
