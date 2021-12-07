@@ -32,10 +32,14 @@ export const userSlice = createSlice({
      // Reducers and each countains our actions
      reducers: {
         update: (state,action) => {
-          
-        }
-     }
-})
+          state.name = action.payload.name;
+          state.email = action.payload.email;
+        },
+     },
+});
+
+// Let's export our actions
+export const {update} = userSlice.actions;
 
 ````
 
@@ -49,7 +53,9 @@ import { configureStore } from '@reduxjs/toolkit';
 
 ## State management with Redux
 
-In a real world project, let's imagine we have an `Update.jsx` component, where we update the user value and we want that the updated value used by all the React components who render `user` object. So in the *UpdateComponent* :
+In a real world project, let's imagine we have an `Update.jsx` component, where we update the user value and we want that the updated value used by all the React components who render `user` object.
+
+### Update.jsx
 
 ````javascript
  import { useState } from 'React';
@@ -61,7 +67,7 @@ In a real world project, let's imagine we have an `Update.jsx` component, where 
  }
 ````
 
-In the return section of `Ùpdate.jsx` we set the _userObject_ like follow:
+In the return section of `Update.jsx` we set the _userObject_ like follow:
 
 ````jsx
   <div className='formItem'>
@@ -84,3 +90,5 @@ In the return section of `Ùpdate.jsx` we set the _userObject_ like follow:
     />
   </div>
 ````
+
+So what we need to do now is to send the updated values to our __reducer__ and they are going to be basically our __action payload__ 
