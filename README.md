@@ -320,9 +320,45 @@ import { updateUser } from '../../redux/apiCalls';
  };
 ````
 
+For further usage, we can disable the _update button_ while fetching data from the server, and make use of our **updateStart()** action. It's just an example, you can be creative and make whatever you like with your custom reducers according to the behavior you want to render.
+
+So in Our case, we will disable the the _update button_ when **updateStart()** action is called. Display an error message when **updateFailure()** is called. Show success message when  **updateSuccess()**.
+
+### update.css
+
+````css
+.updateButton {
+  margin-top: 10px;
+  border: none;
+  padding: 5px  10px;
+  background-color: rgb(97, 161, 161);
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.updateButton:disabled{
+  cursor: not-allowed;
+  background-color: rgb(136, 168, 168);
+}
+
+.error{
+  color: red;
+  font-size: 14px;
+  margin-left: 20px;
+}
+
+.success{
+  color: green;
+  font-size: 14px;
+  margin-left: 20px;
+}
+````
+
 ## Redux DevTools
 
-For a better understanding, i highly recommand installing the **![Redux DevTools](https://github.com/reduxjs/redux-devtools)** extension on Chrome Browse or any browser of your choice, so that you can track the state of your reducers.
+For a better understanding, i highly recommand installing the **[Redux DevTools](https://github.com/reduxjs/redux-devtools)** extension on Chrome Browse or any browser of your choice, so that you can track the state of your reducers. It's very usefull and time saver.
 
 
 
