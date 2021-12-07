@@ -7,6 +7,7 @@ Redux is nothing but an open-source javascript library that contains the state o
 ## Redux For React
 
 To use Redux Library in ReactJs application, we must install the following dependencies:
+
 **- Redux Toolkit:** `npm i @reduxjs/toolkit` or `yarn add @reduxjs/toolkit`.
 
 **- Redux Core:** `npm i redux` or `yarn add redux`.
