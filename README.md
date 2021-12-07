@@ -457,8 +457,8 @@ export const updateUserThunk = createAsyncThunk("users/update", async (user) => 
       name: "user",
       initialState: {
         userInfo: {
-          name: "john",
-          email: "john@email.com",
+          name: " ",
+          email: " ",
         },
         pending: null,
         error: null,
@@ -504,13 +504,14 @@ export const updateUserThunk = createAsyncThunk("users/update", async (user) => 
 ### Update.jsx
 
 ````jsx
-import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
+//...
+
 import { updateUserThunk } from "../../redux/userRedux";
 
 export default function Update() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  
+  //...
+  
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
@@ -541,6 +542,8 @@ export default function Update() {
   )
 }
 ````
+
+For more details, you can see more about **Redux Async Thunk** in their [Documentation](https://redux-toolkit.js.org/api/createAsyncThunk).
 
 
 ## Redux DevTools
