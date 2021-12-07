@@ -320,9 +320,11 @@ import { updateUser } from '../../redux/apiCalls';
  };
 ````
 
+## Redux Async Pending & Error
+
 For further usage, we can disable the _update button_ while fetching data from the server, and make use of our **updateStart()** action. It's just an example, you can be creative and make whatever you like with your custom reducers according to the behavior you want to render.
 
-So in Our case, we will disable the the _update button_ when **updateStart()** action is called. Display an error message when **updateFailure()** is called. Show success message when  **updateSuccess()**.
+So in Our case, we will disable the the _update button_ when **updateStart()** action is called. Display an error message when **updateFailure()** is called. Show success message when **updateSuccess()**.
 
 ### update.css
 
@@ -354,6 +356,65 @@ So in Our case, we will disable the the _update button_ when **updateStart()** a
   font-size: 14px;
   margin-left: 20px;
 }
+````
+
+In **Update.jsx** component we custom the update button :
+
+````jsx
+export default function Update(){
+  // ...
+  //let s destructure our state
+  const {userInfo, pending, error } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    //call the action that we want to dispatch
+    // in this case it's the update action
+    // inside the dispatched action, we give our payload
+    updateUser({name, email}, dispatch);
+  };
+  
+  return (
+    <!-- ... -->
+    
+    <div className='formItem'>
+      <label>Username</label>
+      <input
+        className='formInput'
+        type='text'
+        placeholder={userInfo.name}
+        onChange={(e)=>setName(e.target.value)}
+       />
+    </div>
+  
+    <div className='formItem'>
+      <label>Email</label>
+      <input
+        className='formInput'
+        type='text'
+        placeholder={userInfo.email}
+        onChange={(e)=>setEmail(e.target.value)}
+      />
+    </div>
+    <!-- ...  -->
+    <button
+      disabled={user.pending}
+      className="updateButton"
+      onClick={handleUpdate}
+    >
+       Update
+    </button>
+    
+    {user.error && <span className="error">Something went wrong!</span>}
+    {user.pending === false && (
+        <span className="success">Account has been updated!</span>
+     )}
+     
+    <!-- ... -->
+  );
+  
+ };
 ````
 
 ## Redux DevTools
