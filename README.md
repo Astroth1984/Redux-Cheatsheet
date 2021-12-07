@@ -276,12 +276,53 @@ export const updateUser = async (user, dispatch) => {
   dispatch(updateStart());
   try {
     const res = await axios.post("http://localhost:8800/api/users/1/update", user);
+    //Dispatch Success action and pass in our payload
     dispatch(updateSuccess(res.data));
   } catch (err) {
     dispatch(updateFailure());
   }
 };
 ````
+
+### Update.jsx
+
+In this case we change the approache how we dispatch our actions like so :
+
+````javascript
+import { useState } from 'React';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateUser } from '../../redux/apiCalls';
+
+ 
+ export default function Update(){
+  // ...
+  const user = useSelector((state) => state.user.userInfo);
+  const dispatch = useDispatch();
+  
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    //call the action that we want to dispatch
+    // in this case it's the update action
+    // inside the dispatched action, we give our payload
+    updateUser({name, email}, dispatch);
+  };
+  
+  return (
+    <!-- ...  -->
+    <button
+      className="updateButton"
+      onClick={handleUpdate}
+    >
+       Update
+    </button>
+  );
+  
+ };
+````
+
+## Redux DevTools
+
+For a better understanding, i highly recommand installing the **![Redux DevTools](https://github.com/reduxjs/redux-devtools)** extension on Chrome Browse or any browser of your choice, so that you can track the state of your reducers.
 
 
 
