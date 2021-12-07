@@ -21,9 +21,21 @@ You can name the file also as `userSlice.jsx` as mentionned in Redux documentati
 ````javascript
 import { createSlice } from '@reduxjs/toolkit';
 
+export const userSlice = createSlice({
+  
+     /*Reducer name*/
+     name: "user",
+     initialState: {
+         name: "",
+         email: ""
+     },
+})
+
 ````
 
 ## redux/store.js
+
+The store will containe our user infromation (username, email ...)
 
 ````javascript
 import { configureStore } from '@reduxjs/toolkit';
