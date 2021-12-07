@@ -4,13 +4,15 @@
 
 Redux is nothing but an open-source javascript library that contains the state of the application. The working of Redux is very simple to understand. There are three building parts of the Redux as- Store, Actions, and Reducers.
 
-## Redux For React
+## Redux For React (installation packages)
 
 To use Redux Library in ReactJs application, we must install the following dependencies:
 
 **- Redux Toolkit:** `npm i @reduxjs/toolkit` or `yarn add @reduxjs/toolkit`.
 
 **- Redux Core:** `npm i redux` or `yarn add redux`.
+
+**-React-Redux:** `npm i react-redux` or `yarn add react-redux`.
 
 
 ## Implimentation
@@ -125,5 +127,22 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
+````
+
+### Navbar.jsx
+
+Assuming that in the application navbar we show our `user`, the following is the details about how the _Navbar.jsx_ component can call the updated *userObject* in our __store__ using `useSelector() Hook`.
+
+````jsx
+import React from "react";
+import { useSelector } from "react-redux";
+
+const Navbar = () => {
+  const name = useSelector((state) => state.user.name);
+  
+  return (
+    <span className="navbarName">{name}</span>
+  )
+};
 ````
 
