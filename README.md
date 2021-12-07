@@ -426,6 +426,122 @@ With **Redux Async Thunk** we should add to our __userRedux.js__ one more functi
 
 **`rejected` : `users/requestStatus/rejected`**
 
+And all our **Api Calls** will be in the same file :
+
+### userRedux.js
+
+````javascript
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+
+
+//createAsyncThunk() contains the action name
+export const updateUserThunk = createAsyncThunk("users/update", async (user) => {
+    const response = await axios.post(
+      "http://localhost:8800/api/users/1/update",
+       user
+    );
+    return response.data;
+ });
+ 
+ //DELETE
+ export const DELETEUserThunk = createAsyncThunk("users/update", async (user) => {
+    const response = await axios.delete(
+      "http://localhost:8800/api/users/1/update",
+       user
+    );
+    return response.data;
+ });
+ 
+ export const userSlice = createSlice({
+      name: "user",
+      initialState: {
+        userInfo: {
+          name: "john",
+          email: "john@email.com",
+        },
+        pending: null,
+        error: null,
+      },
+      reducers: {},
+      
+      // when using *Redux Async Thunks* all the reducers must be created in extraReducers
+      extraReducers: {
+        [updateUserThunk.pending]: (state) => {
+            state.pending = true;
+            state.error = false;
+        },
+        [updateUserThunk.fulfilled]: (state, action) => {
+            state.userInfo = action.payload;
+            state.pending = false;
+        },
+        [updateUserThunk.rejected]: (state) => {
+            state.pending = false;
+            state.error = true;
+        },
+      },
+      
+      extraReducers: {
+        [deleteUserThunk.pending]: (state) => {
+            state.pending = true;
+            state.error = false;
+        },
+        [deleteUserThunk.fulfilled]: (state, action) => {
+            state.userInfo = action.payload;
+            state.pending = false;
+        },
+        [deleteUserThunk.rejected]: (state) => {
+            state.pending = false;
+            state.error = true;
+        },
+      },
+});
+
+````
+
+**Note**: with _createAsyncThunk()_ we dont have to create try & catch block, or any handeling error methods, because everything is taking care of by default. And for each end point we should have its own __extrareducers__ as shown below for *POST* and *DELETE*.
+
+### Update.jsx
+
+````jsx
+import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
+import { updateUserThunk } from "../../redux/userRedux";
+
+export default function Update() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    // without API
+    // dispatch(update({ name, email }));
+    // with API
+    dispatch(updateUserThunk({ name, email }));
+  };
+  
+  return (
+    <!--... -->
+      
+      <button
+        disabled={user.pending}
+        className="updateButton"
+        onClick={handleClick}
+      >
+        Update
+      </button>
+      {user.error && <span className="error">Something went wrong!</span>}
+      {user.pending === false && (
+        <span className="success">Account has been updated!</span>
+      )}
+        
+    <!--... -->
+  )
+}
+````
+
 
 ## Redux DevTools
 
