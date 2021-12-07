@@ -40,11 +40,15 @@ export const userSlice = createSlice({
           state.name = action.payload.name;
           state.email = action.payload.email;
         },
+        
+        remove: (state) => {
+          state = null;
+        },
      },
 });
 
 // Let's export our actions
-export const {update} = userSlice.actions;
+export const {update, remove} = userSlice.actions;
 
 // export reducer to use it in our store
 export default userSlice.reducer;
@@ -142,6 +146,39 @@ import { update } from '../../redux/userRedux';
  };
 ````
 
+- Since we have created our *remove reducer* and export our action, it'll be used like so :
+
+````jsx
+import { useSelector, useDispatch } from 'react-redux';
+import { update, remove } from '../../redux/userRedux';
+
+
+export default function Update(){
+  // ...
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  
+  // ...
+  const handleDelete = (e) => {
+    e.preventDefault();
+    dispatch(remove();
+  };
+  
+  // ...
+  
+  return (
+    <!-- ...  -->
+    <button
+      className="deleteButton"
+      onClick={handleDelete}
+    >
+       Delete Account
+    </button>
+    <!-- ... -->
+  );
+  
+ };
+````
 
 ### index.js
 
