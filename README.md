@@ -29,6 +29,12 @@ export const userSlice = createSlice({
          name: "",
          email: ""
      },
+     // Reducers and each countains our actions
+     reducers: {
+        update: (state,action) => {
+          
+        }
+     }
 })
 
 ````
@@ -39,4 +45,42 @@ The store will containe our user infromation (username, email ...)
 
 ````javascript
 import { configureStore } from '@reduxjs/toolkit';
+````
+
+## State management with Redux
+
+In a real world project, let's imagine we have an `Update.jsx` component, where we update the user value and we want that the updated value used by all the React components who render `user` object. So in the *UpdateComponent* :
+
+````javascript
+ import { useState } from 'React';
+ 
+ export default function Update(){
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  
+ }
+````
+
+In the return section of `Ùpdate.jsx` we set the _userObject_ like follow:
+
+````jsx
+  <div className='formItem'>
+    <label>Username</label>
+    <input
+      className='formInput'
+      type='text'
+      placeholder='username'
+      onChange={(e)=>setName(e.target.value)}
+    />
+  </div>
+  
+  <div className='formItem'>
+    <label>Email</label>
+    <input
+      className='formInput'
+      type='text'
+      placeholder='email'
+      onChange={(e)=>setEmail(e.target.value)}
+    />
+  </div>
 ````
