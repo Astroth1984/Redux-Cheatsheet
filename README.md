@@ -41,9 +41,7 @@ export const userSlice = createSlice({
           state.email = action.payload.email;
         },
         
-        remove: (state) => {
-          state = null;
-        },
+        remove: (state) => (state = {}),
      },
 });
 
@@ -214,5 +212,50 @@ const Navbar = () => {
     <span className="navbarName">{name}</span>
   )
 };
+````
+
+## Redux Async Actions
+
+In this main case, we fetch data from a back-end server or connecting to an API, so we have to handle our async http calls in redux.
+There are three solution to do that : **Redux Thunk** , **The default solution of Redux toolkit** or using **Custom Reducers**.
+
+The following section describes how we can handle _Async Actions_ with **Custom Reducers**.
+
+### src/redux/userRedux.jsx
+
+````javascript
+import { createSlice } from '@reduxjs/toolkit';
+
+export const userSlice = createSlice({
+     name: "user",
+     initialState: {
+       user: {
+          name: "",
+          email: ""
+       },
+       pending: false,
+       error: false
+     },
+     // Reducers and each countains our actions
+     reducers: {
+        updateStart: (state) => {
+          state.pending = true;
+        },
+        updateSuccess: (state, action) => {
+          state.pending = false;
+          state.userInfo = action.payload;
+        },
+        updateFailure: (state) => {
+          state.pending = false;
+          state.error = true;
+        },
+     },
+});
+
+// Let's export our actions
+export const { updateStart, updateSuccess, updateFailure } = userSlice.actions;
+
+// export reducer to use it in our store
+export default userSlice.reducer;
 ````
 
