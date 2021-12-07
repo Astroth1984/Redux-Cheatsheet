@@ -512,7 +512,7 @@ export default function Update() {
   
   //...
   
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user.userInfo);
   const dispatch = useDispatch();
 
   const handleClick = (e) => {
