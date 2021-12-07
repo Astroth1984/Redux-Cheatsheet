@@ -108,7 +108,7 @@ In the return section of `Update.jsx` we set the _userObject_ like follow:
 ````
 
 So what we need to do now is to send the updated values to our __reducer__ and they are going to be basically our __action payload__.
-To do that we should we should **Dispatch our action** when we submit our form, for that we use a React Hook called `useDispatch()`:
+To do that we should **Dispatch our action** when we submit our form, for that we use a React Hook called `useDispatch()`:
 
 ````javascript
 import { useState } from 'React';
