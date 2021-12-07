@@ -416,6 +416,16 @@ export default function Update(){
   
  };
 ````
+## Async Redux with Thunk
+
+With **Redux Async Thunk** we should add to our __userRedux.js__ one more function *createAsyncThunk*, and it provides us with some default reducers:
+
+**`pending` : `users/requestStatus/pending`**
+
+**`fulfilled` : `users/requestStatus/fulfilled`**
+
+**`rejected` : `users/requestStatus/rejected`**
+
 
 ## Redux DevTools
 
