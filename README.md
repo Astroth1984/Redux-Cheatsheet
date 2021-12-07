@@ -73,10 +73,12 @@ In a real world project, let's imagine we have an `Update.jsx` component, where 
 
 ````javascript
  import { useState } from 'React';
+ import { useSelector } from 'react-redux';
  
  export default function Update(){
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const user = useSelector((state) => state.user);
   
  }
 ````
@@ -89,7 +91,7 @@ In the return section of `Update.jsx` we set the _userObject_ like follow:
     <input
       className='formInput'
       type='text'
-      placeholder='username'
+      placeholder={user.name}
       onChange={(e)=>setName(e.target.value)}
     />
   </div>
@@ -99,15 +101,46 @@ In the return section of `Update.jsx` we set the _userObject_ like follow:
     <input
       className='formInput'
       type='text'
-      placeholder='email'
+      placeholder={user.email}
       onChange={(e)=>setEmail(e.target.value)}
     />
   </div>
 ````
 
 So what we need to do now is to send the updated values to our __reducer__ and they are going to be basically our __action payload__.
+To do that we should we should **Dispatch our action** when we submit our form, for that we use a React Hook called `useDispatch()`:
 
-To do that we should 
+````javascript
+import { useState } from 'React';
+import { useSelector, useDispatch } from 'react-redux';
+import { update } from '../../redux/userRedux';
+
+ 
+ export default function Update(){
+  // ...
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    //call the action that we want to dispatch
+    // in this case it's the update action
+    // inside the dispatched action, we give our payload
+    dispatch(update({name, email});
+  };
+  
+  return (
+    <!-- ...  -->
+    <button
+      className="updateButton"
+      onClick={handleUpdate}
+    >
+       Update
+    </button>
+  );
+  
+ };
+````
 
 
 ### index.js
