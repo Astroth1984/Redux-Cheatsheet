@@ -445,7 +445,7 @@ export const updateUserThunk = createAsyncThunk("users/update", async (user) => 
  });
  
  //DELETE
- export const DELETEUserThunk = createAsyncThunk("users/update", async (user) => {
+ export const deleteUserThunk = createAsyncThunk("users/update", async (user) => {
     const response = await axios.delete(
       "http://localhost:8800/api/users/1/update",
        user
